@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int kiemTraSNT(int x)
+{
+    if(x < 2)
+        return 0;
+    for(int i = 2; i*i <= x; i++)
+        if (x % i == 0)
+            return 0;
+    return 1;
+}
+
+int mod(int x, int y, int p)
+{
+    int tmp = 1;
+    int i;
+    for (i = 1; i <= y; ++i)
+        tmp = (tmp * x) % p;
+    return tmp;
+}
+
+int main()
+{
+    int g,p;
+    printf("nhap 2 so nguyen to p va g: ");
+    while(1)
+    {
+        scanf("%d%d",&p,&g);
+        if(kiemTraSNT(g) && kiemTraSNT(p)&& p > g)
+            break;
+        printf("nhap lai p va g: ");
+    }
+    //Alice chon ngau nhien so bi mat a
+    int a;
+    printf("nhap a: ");
+    scanf("%d",&a);
+    //Bob chon ngau nhien so bi mat b
+    int b;
+    printf("nhap b: ");
+    scanf("%d",&b);
+    printf("a = %d, b = %d\n",a,b);
+    int A,B;
+    A = mod(g, a, p); //Alice gui cho Bob A = g^a mod p
+    B = mod(g, b, p); //Bob gui cho Alice B = g^b mod p
+    printf("A = %d, B = %d\n",A,B);
+
+    //tinh khoa k bi mat
+    int kA,kB;
+    kA = mod(B, a, p); //k1 = B^a mod p
+    kB = mod(A, b, p); //k2 = A^b mod p
+    printf("k Alice = %d, k Bob = %d",kA,kB);
+    return 0;
+}
